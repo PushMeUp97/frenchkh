@@ -3,187 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video to GIF Converter</title>
+    <title>French A1 Fundamentals Study Guide</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 1200px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f7f9fa;
         }
-        
-        .header {
+        header {
             text-align: center;
-            margin-bottom: 30px;
-            background: white;
+            background: linear-gradient(135deg, #0055A5, #FFFFFF, #EF4135);
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        
-        .instructions {
-            background: #e3f2fd;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+        header h1 {
+            margin: 0;
+            color: #fff;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
         }
-        
-        .gif-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+        h2 {
+            color: #0055A5;
+            border-bottom: 2px solid #EF4135;
+            padding-bottom: 5px;
             margin-top: 30px;
         }
-        
-        .gif-card {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
+        h3 {
+            color: #2c3e50;
         }
-        
-        .gif-card img {
-            max-width: 100%;
-            border-radius: 5px;
+        .section {
+            background: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        
-        .gif-card button {
-            background: #ff4444;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
         }
-        
-        .gif-card button:hover {
-            background: #cc0000;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
         }
-        
-        .refresh-btn {
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        th {
+            background-color: #f2f2f2;
+            color: #0055A5;
+        }
+        .note {
+            background-color: #e7f3fe;
+            border-left: 6px solid #2196F3;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .quiz-container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+        .question {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .options {
             margin-bottom: 20px;
         }
-        
-        .refresh-btn:hover {
-            background: #45a049;
+        .options label {
+            display: block;
+            margin: 8px 0;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
         }
-        
-        .loading {
-            text-align: center;
-            padding: 20px;
+        .options label:hover {
+            background: #f0f4f8;
         }
-        
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #666;
+        .btn {
+            background-color: #0055A5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background-color: #003b73;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #27ae60;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🎬 Video to GIF Converter</h1>
-        <p>Convert your videos to GIFs using Telegram Bot</p>
+
+    <header>
+        <h1>French A1 Level: The Fundamentals</h1>
+    </header>
+
+    <div class="section">
+        <h2>1. What is CEFR A1 French?</h2>
+        <p>The <strong>A1 Level</strong> represents the "Discovery" or beginner stage of the Common European Framework of Reference for Languages (CEFR). At this level, your goal is to interact in a simple way with the world around you. </p>
+        <p><strong>Core Competencies:</strong></p>
+        <ul>
+            <li>Introduce yourself and others simply.</li>
+            <li>Ask and answer basic personal questions (where you live, people you know, things you have).</li>
+            <li>Understand and use familiar everyday expressions and basic phrases aimed at the satisfaction of practical needs.</li>
+            <li>Communicate slowly if the other person talks clearly.</li>
+        </ul>
     </div>
 
-    <div class="instructions">
-        <h3>📋 How to use:</h3>
-        <ol>
-            <li>Start a chat with our Telegram bot</li>
-            <li>Send any video file (max 50MB)</li>
-            <li>The bot will convert it to GIF and send it back</li>
-            <li>Your GIF will appear here automatically</li>
-        </ol>
-        <p><strong>Note:</strong> Videos longer than 10 seconds will be trimmed</p>
+    <div class="section">
+        <h2>2. Key Grammar Pillars</h2>
+        
+        <h3>A. Subject Pronouns (Les Pronoms Sujets)</h3>
+        <p>These form the absolute foundation of building any French sentence.</p>
+        <table>
+            <tr>
+                <th>Singular</th>
+                <th>Plural</th>
+            </tr>
+            <tr>
+                <td><strong>Je</strong> (I)</td>
+                <td><strong>Nous</strong> (We)</td>
+            </tr>
+            <tr>
+                <td><strong>Tu</strong> (You - informal/singular)</td>
+                <td><strong>Vous</strong> (You - formal or plural)</td>
+            </tr>
+            <tr>
+                <td><strong>Il / Elle / On</strong> (He / She / One, We)</td>
+                <td><strong>Ils / Elles</strong> (They - masc. / They - fem.)</td>
+            </tr>
+        </table>
+
+        <h3>B. Nouns and Articles (Gender & Number)</h3>
+        <p>Every single noun in French has a grammatical gender: <strong>Masculine</strong> or <strong>Feminine</strong>.</p>
+        <ul>
+            <li><strong>Definite Articles (The):</strong> <em>Le</em> (masc.), <em>La</em> (fem.), <em>L'</em> (before a vowel), <em>Les</em> (plural).</li>
+            <li><strong>Indefinite Articles (A/An/Some):</strong> <em>Un</em> (masc.), <em>Une</em> (fem.), <em>Des</em> (plural).</li>
+        </ul>
+        <div class="note">
+            <strong>Example:</strong> <em>Le livre</em> (The book - masc.) | <em>La table</em> (The table - fem.) | <em>Des pommes</em> (Some apples - plural)
+        </div>
+
+        <h3>C. The Two Ultimate Essential Verbs</h3>
+        <p>You cannot survive A1 French without mastering the irregular verbs <strong>Être</strong> (to be) and <strong>Avoir</strong> (to have).</p>
+        
+        <table style="width:48%; display:inline-block; margin-right:3%;">
+            <thead>
+                <tr><th colspan="2">Être (To Be)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Je suis</td><td>I am</td></tr>
+                <tr><td>Tu es</td><td>You are</td></tr>
+                <tr><td>Il/Elle est</td><td>He/She is</td></tr>
+                <tr><td>Nous sommes</td><td>We are</td></tr>
+                <tr><td>Vous êtes</td><td>You are</td></tr>
+                <tr><td>Ils/Elles sont</td><td>They are</td></tr>
+            </tbody>
+        </table>
+
+        <table style="width:48%; display:inline-block;">
+            <thead>
+                <tr><th colspan="2">Avoir (To Have)</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>J'ai</td><td>I have</td></tr>
+                <tr><td>Tu as</td><td>You have</td></tr>
+                <tr><td>Il/Elle a</td><td>He/She has</td></tr>
+                <tr><td>Nous avons</td><td>We have</td></tr>
+                <tr><td>Vous avez</td><td>You have</td></tr>
+                <tr><td>Ils/Elles ont</td><td>They have</td></tr>
+            </tbody>
+        </table>
     </div>
 
-    <div style="text-align: center;">
-        <button class="refresh-btn" onclick="loadGifs()">🔄 Refresh GIFs</button>
-    </div>
+    <div class="quiz-container">
+        <h2>3. Test Your Fundamental Knowledge</h2>
+        <p>Take this interactive A1 mini-quiz to see how much you've retained.</p>
+        
+        <form id="quizForm">
+            <div class="question">1. How do you say "I am" in French?</div>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A) J'ai</label>
+                <label><input type="radio" name="q1" value="B"> B) Je suis</label>
+                <label><input type="radio" name="q1" value="C"> C) Tu es</label>
+            </div>
 
-    <div id="gif-container">
-        <div class="loading">Loading GIFs...</div>
+            <div class="question">2. Which article corresponds to a singular feminine noun?</div>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A) Le</label>
+                <label><input type="radio" name="q2" value="B"> B) Une</label>
+                <label><input type="radio" name="q2" value="C"> C) Des</label>
+            </div>
+
+            <div class="question">3. What is the correct translation of "They have"?</div>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A) Ils ont</label>
+                <label><input type="radio" name="q3" value="B"> B) Nous avons</label>
+                <label><input type="radio" name="q3" value="C"> C) Ils sont</label>
+            </div>
+
+            <button type="button" class="btn" onclick="checkAnswers()">Submit Quiz</button>
+        </form>
+
+        <div id="result"></div>
     </div>
 
     <script>
-        async function loadGifs() {
-            const container = document.getElementById('gif-container');
-            container.innerHTML = '<div class="loading">Loading GIFs...</div>';
+        function checkAnswers() {
+            let score = 0;
+            const q1 = document.querySelector('input[name="q1"]:checked');
+            const q2 = document.querySelector('input[name="q2"]:checked');
+            const q3 = document.querySelector('input[name="q3"]:checked');
             
-            try {
-                const response = await fetch('/api/gifs');
-                const gifs = await response.json();
-                
-                if (gifs.length === 0) {
-                    container.innerHTML = `
-                        <div class="empty-state">
-                            <h3>No GIFs yet</h3>
-                            <p>Send a video to the Telegram bot to get started!</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                let html = '<div class="gif-grid">';
-                
-                gifs.forEach(gif => {
-                    html += `
-                        <div class="gif-card">
-                            <img src="${gif.url}" alt="Converted GIF">
-                            <div>
-                                <button onclick="deleteGif('${gif.filename}')">Delete</button>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
-                container.innerHTML = html;
-                
-            } catch (error) {
-                container.innerHTML = '<div class="loading">Error loading GIFs</div>';
-                console.error('Error:', error);
-            }
-        }
-        
-        async function deleteGif(filename) {
-            if (!confirm('Are you sure you want to delete this GIF?')) {
+            if(!q1 || !q2 || !q3) {
+                document.getElementById('result').style.color = '#EF4135';
+                document.getElementById('result').innerText = "Please answer all questions before submitting.";
                 return;
             }
-            
-            try {
-                const response = await fetch(`/api/delete/${filename}`, {
-                    method: 'DELETE'
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    loadGifs(); // Reload the list
-                } else {
-                    alert('Error deleting GIF: ' + result.message);
-                }
-            } catch (error) {
-                alert('Error deleting GIF');
-                console.error('Error:', error);
-            }
+
+            if(q1.value === "B") score++;
+            if(q2.value === "B") score++;
+            if(q3.value === "A") score++;
+
+            document.getElementById('result').style.color = '#27ae60';
+            document.getElementById('result').innerText = `You scored ${score} out of 3! ` + (score === 3 ? "Excellent work! Bon travail !" : "Keep practicing your basics.");
         }
-        
-        // Load GIFs when page loads
-        document.addEventListener('DOMContentLoaded', loadGifs);
-        
-        // Auto-refresh every 30 seconds
-        setInterval(loadGifs, 30000);
     </script>
+
 </body>
 </html>
