@@ -1,385 +1,736 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master French: Ultimate Core Curriculum & 90-Question Diagnostic</title>
-    <style>
-        :root {
-            --primary: #0055A5;
-            --accent: #EF4135;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-            --border: #e2e8f0;
-        }
-        * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background-color: var(--light); color: var(--dark); line-height: 1.6; margin: 0; padding: 0; }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), #003b73);
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-            border-bottom: 5px solid var(--accent);
-        }
-        header h1 { margin: 0; font-size: 2.5rem; letter-spacing: -0.5px; }
-        header p { margin: 10px 0 0; font-size: 1.2rem; opacity: 0.9; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
+  <title>Master French · Core Curriculum + Translation</title>
+  <style>
+    /* ----- reset & variables ----- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --primary: #0055A5;
+      --accent: #EF4135;
+      --dark: #1e293b;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --success: #10b981;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    }
+    body {
+      background: var(--light);
+      color: var(--dark);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      padding: 0;
+      margin: 0;
+    }
+    /* ----- header ----- */
+    header {
+      background: linear-gradient(135deg, var(--primary), #003b73);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+      border-bottom: 5px solid var(--accent);
+    }
+    header h1 { font-size: 2.2rem; letter-spacing: -0.3px; margin-bottom: 0.25rem; }
+    header p { font-size: 1.1rem; opacity: 0.9; }
+    /* ----- container & tabs ----- */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--gray);
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { background: #e9eef3; }
+    .tab-btn.active {
+      background: var(--primary);
+      color: white;
+    }
+    /* ----- phase content ----- */
+    .phase-content { display: none; animation: fade 0.25s ease; }
+    .phase-content.active { display: block; }
+    @keyframes fade { from { opacity: 0.3; } to { opacity: 1; } }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
-        
-        .nav-tabs { display: flex; gap: 10px; margin-bottom: 30px; border-bottom: 2px solid var(--border); padding-bottom: 10px; overflow-x: auto; }
-        .tab-btn { background: none; border: none; padding: 12px 24px; font-size: 1rem; font-weight: 600; color: var(--gray); cursor: pointer; border-radius: 6px; transition: all 0.2s; white-space: nowrap; }
-        .tab-btn.active { background-color: var(--primary); color: white; }
-        
-        .phase-content { display: none; }
-        .phase-content.active { display: block; }
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+    h2 {
+      color: var(--primary);
+      font-size: 1.7rem;
+      border-left: 6px solid var(--accent);
+      padding-left: 1rem;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+    h3 {
+      color: #0f172a;
+      font-size: 1.2rem;
+      margin-top: 1.8rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3rem;
+    }
+    /* tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin: 1rem 0;
+    }
+    th, td {
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f1f5f9;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .speech-bubble {
+      background: #eff6ff;
+      border-left: 4px solid var(--primary);
+      padding: 1rem 1.2rem;
+      border-radius: 0 10px 10px 0;
+      font-style: italic;
+      margin: 1.2rem 0;
+    }
+    /* quiz */
+    .quiz-title {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+    .q-item {
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px dashed #dde3ea;
+    }
+    .q-text {
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      color: #1e293b;
+    }
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    @media (max-width: 550px) {
+      .options-grid { grid-template-columns: 1fr; }
+    }
+    .option-label {
+      display: flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s;
+      font-size: 0.95rem;
+    }
+    .option-label:hover { background: #eef2f6; }
+    .option-label input { margin-right: 10px; accent-color: var(--primary); }
+    .submit-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.9rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.05s;
+    }
+    .submit-btn:hover { background: #c92f24; }
+    .submit-btn:active { transform: scale(0.98); }
+    .score-display {
+      display: none;
+      margin-top: 1.5rem;
+      padding: 1.2rem;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .score-success { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+    .score-fail { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
 
-        .card { background: white; border-radius: 12px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid var(--border); }
-        h2 { color: var(--primary); margin-top: 0; font-size: 1.8rem; border-left: 5px solid var(--accent); padding-left: 12px; }
-        h3 { color: #0f172a; margin-top: 25px; font-size: 1.3rem; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
-        
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
-        th, td { padding: 12px 15px; border: 1px solid var(--border); text-align: left; }
-        th { background-color: #f1f5f9; color: var(--primary); font-weight: 600; }
-        tr:nth-child(even) { background-color: #f8fafc; }
-
-        .speech-bubble { background-color: #eff6ff; border-left: 4px solid var(--primary); padding: 15px; margin: 15px 0; border-radius: 0 8px 8px 0; font-style: italic; }
-        
-        /* Quiz Styling */
-        .quiz-title { color: var(--accent); font-weight: bold; font-size: 1.5rem; margin-bottom: 20px; }
-        .q-item { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed var(--border); }
-        .q-text { font-weight: 600; margin-bottom: 12px; color: #334155; }
-        .options-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        @media(min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
-        .option-label { display: flex; align-items: center; background: #f8fafc; border: 1px solid var(--border); padding: 12px; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
-        .option-label:hover { background: #f1f5f9; }
-        .option-label input { margin-right: 10px; accent-color: var(--primary); }
-        
-        .submit-btn { background-color: var(--accent); color: white; border: none; padding: 15px 40px; font-size: 1.1rem; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 20px; transition: transform 0.1s, background-color 0.2s; }
-        .submit-btn:hover { background-color: #d63025; }
-        .submit-btn:active { transform: scale(0.99); }
-        
-        .score-display { display: none; margin-top: 25px; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.3rem; font-weight: bold; }
-        .score-success { background-color: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
-        .score-fail { background-color: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
-
-        code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #0f172a; }
-    </style>
+    /* ----- TRANSLATION PAGE (Phase 4) ----- */
+    .translator-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 650px) {
+      .translator-grid { grid-template-columns: 1fr; gap: 1rem; }
+    }
+    .trans-box {
+      background: #f1f5f9;
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+    }
+    .trans-box label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    .trans-box textarea, 
+    .trans-box input[type="text"] {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: white;
+      transition: border 0.2s;
+      font-family: inherit;
+    }
+    .trans-box textarea:focus, 
+    .trans-box input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,85,165,0.15);
+    }
+    .trans-box textarea { min-height: 100px; resize: vertical; }
+    .trans-btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .trans-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      flex: 1 0 auto;
+    }
+    .trans-btn:hover { background: #004080; }
+    .trans-btn.secondary { background: var(--gray); }
+    .trans-btn.secondary:hover { background: #4b5a6a; }
+    .trans-result {
+      background: white;
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+      min-height: 80px;
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .french-highlight { color: var(--primary); font-weight: 500; }
+    .sample-sentences {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      margin: 0.8rem 0 0.2rem;
+    }
+    .sample-chip {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    .sample-chip:hover {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    /* responsive helpers */
+    .mt-2 { margin-top: 1.2rem; }
+    .text-small { font-size: 0.9rem; }
+    code { background: #f1f5f9; padding: 0.1rem 0.4rem; border-radius: 4px; font-family: monospace; }
+  </style>
 </head>
 <body>
 
-    <header>
-        <h1>Curriculum Progressif de Français</h1>
-        <p>A1 Beginner to B1 Intermediate Absolute Structural Deep Dive</p>
-    </header>
+<header>
+  <h1>🇫🇷 Curriculum Progressif de Français</h1>
+  <p>A1 → B1 · Grammar · Quizzes · Translation Lab</p>
+</header>
 
-    <div class="container">
-        <!-- Navigation Tabs -->
-        <div class="nav-tabs">
-            <button class="tab-btn active" onclick="switchPhase('phase1')">Phase 1: The Foundation (A1)</button>
-            <button class="tab-btn" onclick="switchPhase('phase2')">Phase 2: Building Fluency (A2)</button>
-            <button class="tab-btn" onclick="switchPhase('phase3')">Phase 3: The Plateau (B1)</button>
-        </div>
+<div class="container">
+  <!-- TABS -->
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="switchPhase('phase1')">Phase 1 · A1</button>
+    <button class="tab-btn" onclick="switchPhase('phase2')">Phase 2 · A2</button>
+    <button class="tab-btn" onclick="switchPhase('phase3')">Phase 3 · B1</button>
+    <button class="tab-btn" onclick="switchPhase('phase4')">📝 Traduction</button>
+  </div>
 
-        <!-- PHASE 1 CONTENT -->
-        <div id="phase1" class="phase-content active">
-            <div class="card">
-                <h2>Phase 1: Grammar Foundations & Spoken Realities (A1)</h2>
-                <p><strong>Focus:</strong> Present indicative mechanics, noun matching rules, and raw phonetic patterns.</p>
-                
-                <h3>I. Absolute Grammar Constraints</h3>
-                <p>1. <strong>Definite vs. Indefinite Determiners:</strong> French categorizes every noun into binary genders (Masculine/Feminine). Plurals eliminate gender visibility but require morphophonemic compliance during speech.</p>
-                <table>
-                    <tr><th>Type</th><th>Masculine Singular</th><th>Feminine Singular</th><th>Before Vowel/Mute H</th><th>Plural (All Genders)</th></tr>
-                    <tr><td>Definite ("The")</td><td>Le</td><td>La</td><td>L'</td><td>Les</td></tr>
-                    <tr><td>Indefinite ("A/Some")</td><td>Un</td><td>Une</td><td>Un / Une (No change)</td><td>Des</td></tr>
-                </table>
-
-                <p>2. <strong>Core Structural Verbs (Present Indicative):</strong> These four irregular foundations must be completely automated:</p>
-                <table>
-                    <tr><th>Subject Pronoun</th><th>Être (To Be)</th><th>Avoir (To Have)</th><th>Faire (To Do/Make)</th><th>Aller (To Go)</th></tr>
-                    <tr><td><strong>Je (J')</strong></td><td>suis</td><td>ai</td><td>fais</td><td>vais</td></tr>
-                    <tr><td><strong>Tu</strong></td><td>es</td><td>as</td><td>fais</td><td>vas</td></tr>
-                    <tr><td><strong>Il / Elle / On</strong></td><td>est</td><td>a</td><td>fait</td><td>va</td></tr>
-                    <tr><td><strong>Nous</strong></td><td>sommes</td><td>avons</td><td>faisons</td><td>allons</td></tr>
-                    <tr><td><strong>Vous</strong></td><td>êtes</td><td>avez</td><td>faites</td><td>allez</td></tr>
-                    <tr><td><strong>Ils / Elles</strong></td><td>sont</td><td>ont</td><td>font</td><td>vont</td></tr>
-                </table>
-
-                <h3>II. Spoken Vernacular Realities</h3>
-                <p>In classrooms, you learn <code>Je ne sais pas</code>. On the streets of Paris or Montreal, native speech strips away formal grammar structures rapidly:</p>
-                <div class="speech-bubble">
-                    <strong>Street vs. Textbook:</strong><br>
-                    • Formal: <em>Je ne sais pas.</em> (I don't know.) &rarr; Spoken: <strong>"Chais pas"</strong> [ʃe.pa]<br>
-                    • Formal: <em>Qu'est-ce que c'est ?</em> (What is it?) &rarr; Spoken: <strong>"C'est quoi ?"</strong><br>
-                    • The pronoun <strong>"On"</strong> completely replaces <strong>"Nous"</strong> in colloquial settings while retaining third-person singular conjugation (e.g., <em>"On y va"</em> instead of <em>"Nous allons"</em>).
-                </div>
-            </div>
-
-            <!-- QUIZ 1 -->
-            <div class="card">
-                <div class="quiz-title">Phase 1 Diagnostic: 30 Foundational Questions</div>
-                <form id="quiz1Form"></form>
-                <button class="submit-btn" onclick="gradeQuiz(1)">Evaluate Phase 1 Performance</button>
-                <div id="quiz1Result" class="score-display"></div>
-            </div>
-        </div>
-
-        <!-- PHASE 2 CONTENT -->
-        <div id="phase2" class="phase-content">
-            <div class="card">
-                <h2>Phase 2: Temporal Shifts & Structural Optimization (A2)</h2>
-                <p><strong>Focus:</strong> Historical tracking (Passé Composé), immediate intent (Futur Proche), and direct/indirect pronominalization.</p>
-                
-                <h3>I. Absolute Grammar Constraints</h3>
-                <p>1. <strong>Passé Composé Engine:</strong> Requires an auxiliary verb (Present tense <code>Avoir</code> or <code>Être</code>) combined with the past participle. Verbs tracking structural locomotion or reflexive shifts utilize <code>Être</code> and demand gender/number alignment.</p>
-                <div class="speech-bubble">
-                    <strong>Auxiliary Split Examples:</strong><br>
-                    • Standard (Avoir): <em>J'ai mangé la pomme.</em> (No past participle agreement with subject).<br>
-                    • Locomotion (Être): <em>Elle est allé<strong>e</strong> au cinéma.</em> (An extra 'e' maps to the feminine subject).
-                </div>
-
-                <p>2. <strong>Pronominal Tracking (Direct vs. Indirect):</strong> Object pronouns always shift **upstream**, sitting directly before the conjugated verb engine.</p>
-                <ul>
-                    <li><strong>COD (Direct):</strong> <code>me, te, le, la, nous, vous, les</code>. Replaces nouns directly undergoing actions. (e.g., <em>Je vois le chien &rarr; Je <strong>le</strong> vois</em>).</li>
-                    <li><strong>COI (Indirect):</strong> <code>me, te, lui, nous, vous, leur</code>. Replaces human targets preceded by the preposition <code>à</code>. (e.g., <em>Je parle à Marie &rarr; Je <strong>lui</strong> parle</em>).</li>
-                </ul>
-
-                <h3>II. Spoken Vernacular Realities</h3>
-                <p>Native speakers completely bypass the formal future tense using the highly efficient <strong>Futur Proche</strong>, and drop object pronoun vowels phonetically:</p>
-                <div class="speech-bubble">
-                    <strong>A2 Spoken Realities:</strong><br>
-                    • Formal: <em>Je vais te donner le livre.</em> &rarr; Spoken: <strong>"J'vais t'donner l'livre."</strong> (Vowels drop completely inside speech stream).<br>
-                    • Formal: <em>Il n'y a pas de problème.</em> &rarr; Spoken: <strong>"Y'a pas d'problème."</strong>
-                </div>
-            </div>
-
-            <!-- QUIZ 2 -->
-            <div class="card">
-                <div class="quiz-title">Phase 2 Diagnostic: 30 Intermediate-Transition Questions</div>
-                <form id="quiz2Form"></form>
-                <button class="submit-btn" onclick="gradeQuiz(2)">Evaluate Phase 2 Performance</button>
-                <div id="quiz2Result" class="score-display"></div>
-            </div>
-        </div>
-
-        <!-- PHASE 3 CONTENT -->
-        <div id="phase3" class="phase-content">
-            <div class="card">
-                <h2>Phase 3: Narration Fluidity & Mental Landscapes (B1)</h2>
-                <p><strong>Focus:</strong> Imperfect descriptive context, conditional hypotheticals, and the subjunctive mood boundary.</p>
-                
-                <h3>I. Absolute Grammar Constraints</h3>
-                <p>1. <strong>The Crucial Past Narrative Split:</strong> Passé Composé maps isolated, definitive historical dots. The Imparfait builds continuous descriptive backdrops or sets up recurring habits.</p>
-                <table>
-                    <tr><th>Aspectual Metric</th><th>Passé Composé</th><th>Imparfait</th></tr>
-                    <tr><td><strong>Action Type</strong></td><td>Interruption, precise event, closed duration</td><td>Habitual actions, background scene, internal status</td></tr>
-                    <tr><td><strong>Example Context</strong></td><td><em>Soudain, le téléphone a sonné.</em></td><td><em>Il était minuit, il faisait froid...</em></td></tr>
-                </table>
-
-                <p>2. <strong>The Subjunctive Boundary:</strong> Shifting away from objective statements (Indicative mood) into the subjective domain. Triggered automatically following phrases like <code>Il faut que...</code> or verbs handling emotional, doubtful, or demanding states.</p>
-                <div class="speech-bubble">
-                    <strong>Subjunctive Shift:</strong><br>
-                    • Indicative (Fact): <em>Tu pars.</em> (You leave).<br>
-                    • Subjunctive (Necessity): <em>Il faut que tu part<strong>es</strong>.</em> (It is necessary that you leave).
-                </div>
-
-                <h3>II. Spoken Vernacular Realities</h3>
-                <p>B1 level speech requires mastery of filler modifications (discourse markers) and the complete dynamic removal of the negative particle <code>ne</code>:</p>
-                <div class="speech-bubble">
-                    <strong>Spoken Fillers & Negation Drops:</strong><br>
-                    • Formal: <em>Je ne veux pas cela, ce n'est pas bon.</em> &rarr; Spoken: <strong>"Je veux pas ça, c'est pas bon."</strong><br>
-                    • Native conversational grease: Use <strong>"Du coup"</strong> (So / Consequently), <strong>"En fait"</strong> (In fact), and <strong>"Bah tu vois"</strong> (Well, you see) to link sentences seamlessly.
-                </div>
-            </div>
-
-            <!-- QUIZ 3 -->
-            <div class="card">
-                <div class="quiz-title">Phase 3 Diagnostic: 30 Advanced-Intermediate Competency Questions</div>
-                <form id="quiz3Form"></form>
-                <button class="submit-btn" onclick="gradeQuiz(3)">Evaluate Phase 3 Performance</button>
-                <div id="quiz3Result" class="score-display"></div>
-            </div>
-        </div>
+  <!-- ========== PHASE 1 ========== -->
+  <div id="phase1" class="phase-content active">
+    <div class="card">
+      <h2>Phase 1: Grammar Foundations & Spoken Realities (A1)</h2>
+      <h3>I. Determiners & Core Verbs</h3>
+      <table>
+        <tr><th>Type</th><th>Masc. Sg.</th><th>Fem. Sg.</th><th>Before vowel</th><th>Plural</th></tr>
+        <tr><td>Definite</td><td>Le</td><td>La</td><td>L'</td><td>Les</td></tr>
+        <tr><td>Indefinite</td><td>Un</td><td>Une</td><td>Un / Une</td><td>Des</td></tr>
+      </table>
+      <table>
+        <tr><th>Pronom</th><th>Être</th><th>Avoir</th><th>Faire</th><th>Aller</th></tr>
+        <tr><td>Je</td><td>suis</td><td>ai</td><td>fais</td><td>vais</td></tr>
+        <tr><td>Tu</td><td>es</td><td>as</td><td>fais</td><td>vas</td></tr>
+        <tr><td>Il/Elle/On</td><td>est</td><td>a</td><td>fait</td><td>va</td></tr>
+        <tr><td>Nous</td><td>sommes</td><td>avons</td><td>faisons</td><td>allons</td></tr>
+        <tr><td>Vous</td><td>êtes</td><td>avez</td><td>faites</td><td>allez</td></tr>
+        <tr><td>Ils/Elles</td><td>sont</td><td>ont</td><td>font</td><td>vont</td></tr>
+      </table>
+      <div class="speech-bubble">
+        <strong>🗣️ Street vs. Textbook</strong><br>
+        • <em>Je ne sais pas.</em> → <strong>« Chais pas »</strong> [ʃe.pa]<br>
+        • <em>Qu'est-ce que c'est ?</em> → <strong>« C'est quoi ? »</strong><br>
+        • « On » replaces « Nous » in speech (third-person singular conjugation).
+      </div>
     </div>
+    <div class="card">
+      <div class="quiz-title">📘 Phase 1 Diagnostic · 30 questions</div>
+      <form id="quiz1Form"></form>
+      <button class="submit-btn" onclick="gradeQuiz(1)">Évaluer Phase 1</button>
+      <div id="quiz1Result" class="score-display"></div>
+    </div>
+  </div>
 
-    <script>
-        // Tab switching engine
-        function switchPhase(phaseId) {
-            document.querySelectorAll('.phase-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(phaseId).classList.add('active');
-            event.target.classList.add('active');
-            window.scrollTo(0,0);
-        }
+  <!-- ========== PHASE 2 ========== -->
+  <div id="phase2" class="phase-content">
+    <div class="card">
+      <h2>Phase 2: Temporal Shifts & Pronominalization (A2)</h2>
+      <h3>I. Passé Composé & Object Pronouns</h3>
+      <div class="speech-bubble">
+        <strong>⚡ Auxiliary split</strong><br>
+        • Avoir: <em>J'ai mangé la pomme.</em> (no agreement)<br>
+        • Être: <em>Elle est allé<strong>e</strong> au cinéma.</em> (agreement with subject)
+      </div>
+      <ul>
+        <li><strong>COD</strong> (direct): me, te, le, la, nous, vous, les</li>
+        <li><strong>COI</strong> (indirect): me, te, lui, nous, vous, leur</li>
+      </ul>
+      <div class="speech-bubble">
+        <strong>🗣️ A2 spoken realities</strong><br>
+        • <em>Je vais te donner le livre.</em> → <strong>« J'vais t'donner l'livre. »</strong><br>
+        • <em>Il n'y a pas de problème.</em> → <strong>« Y'a pas d'problème. »</strong>
+      </div>
+    </div>
+    <div class="card">
+      <div class="quiz-title">📘 Phase 2 Diagnostic · 30 questions</div>
+      <form id="quiz2Form"></form>
+      <button class="submit-btn" onclick="gradeQuiz(2)">Évaluer Phase 2</button>
+      <div id="quiz2Result" class="score-display"></div>
+    </div>
+  </div>
 
-        // Diagnostic Datasets
-        const quizData = {
-            1: [
-                { q: "Which subject pronoun represents 'We' in formal textbook French?", o: ["Je", "Nous", "Vous", "Ils"], a: "B" },
-                { q: "Complete the present conjugation: Je ______ étudiant.", o: ["es", "ai", "suis", "est"], a: "C" },
-                { q: "Identify the correct masculine indefinite article:", o: ["La", "Le", "Une", "Un"], a: "D" },
-                { q: "Conjugate the verb 'avoir': Tu ______ un dictionnaire.", o: ["as", "es", "ai", "a"], a: "A" },
-                { q: "What does the street expression 'C'est quoi ?' mean?", o: ["Where is it?", "What is it?", "Who is it?", "Why not?"], a: "B" },
-                { q: "Choose the correct article before a vowel: ______ ordinateur.", o: ["Le", "La", "L'", "Les"], a: "C" },
-                { q: "Conjugate: Ils ______ au parc (Verb: Aller).", o: ["font", "vont", "allons", "vas"], a: "B" },
-                { q: "Which pronoun is used colloquially to mean 'We' but takes 3rd person singular conjugation?", o: ["Ils", "Vous", "On", "Nous"], a: "C" },
-                { q: "Conjugate: Vous ______ du sport (Verb: Faire).", o: ["faisons", "font", "faites", "fais"], a: "C" },
-                { q: "Identify the feminine plural definite article combination:", o: ["Le", "La", "Des", "Les"], a: "D" },
-                { q: "How do you pronounce final consonants like -s or -t at the end of French words generally?", o: ["Always sounded out", "Typically silent", "Pronounced like an English 'Z'", "Vocalized only by females"], a: "B" },
-                { q: "Complete: Elle ______ une voiture rouge.", o: ["est", "fait", "va", "a"], a: "D" },
-                { q: "What is the masculine equivalent of 'une table'?", o: ["le table", "un table", "Nouns have fixed genders", "des tables"], a: "C" },
-                { q: "Conjugate: Nous ______ fatigués.", o: ["sommes", "êtes", "sont", "suis"], a: "A" },
-                { q: "The word 'pain' (bread) requires which singular article?", o: ["La", "Le", "L'", "Les"], a: "B" },
-                { q: "Translate: 'I am going' to French.", o: ["Je fais", "J'ai", "Je vais", "Je suis"], a: "C" },
-                { q: "What happens to 'Je' when it stands directly before a verb starting with a vowel like 'aimer'?", o: ["Becomes J'", "Becomes Juh", "No transformation", "Becomes Me"], a: "A" },
-                { q: "Conjugate: Tu ______ des gâteaux (Verb: Faire).", o: ["faisons", "faites", "fais", "font"], a: "C" },
-                { q: "Select the correct plural form of 'un cahier':", o: ["les cahier", "des cahiers", "une cahiers", "le cahiers"], a: "B" },
-                { q: "Which word means 'Wednesday'?", o: ["Lundi", "Mardi", "Jeudi", "Mercredi"], a: "D" },
-                { q: "How is 'Chais pas' written in formal grammatical French?", o: ["Je sais", "Je ne sais pas", "Ça ne fait rien", "Qu'est-ce que c'est"], a: "B" },
-                { q: "Conjugate: Vous ______ français.", o: ["êtes", "sommes", "sont", "suis"], a: "A" },
-                { q: "What number is 'soixante-dix'?", o: ["60", "70", "16", "90"], a: "B" },
-                { q: "Which article represents a non-specific collection of objects ('some items')?", o: ["Les", "La", "Des", "Un"], a: "C" },
-                { q: "Conjugate: Nous ______ à la maison (Verb: Aller).", o: ["allons", "vont", "allez", "vais"], a: "A" },
-                { q: "What form of address is used for an unknown adult or multiple people?", o: ["Tu", "Vous", "On", "Ils"], a: "B" },
-                { q: "Conjugate: Il ______ beau aujourd'hui (Verb: Faire).", o: ["fait", "va", "est", "a"], a: "A" },
-                { q: "Identify the number 'quinze':", o: ["5", "15", "50", "25"], a: "B" },
-                { q: "Which article fits perfectly with 'pomme' (feminine)?", o: ["Le", "Un", "La", "L'"], a: "C" },
-                { q: "Conjugate: Elles ______ de la chance (Verb: Avoir).", o: ["sont", "ont", "avons", "avez"], a: "B" }
-            ],
-            2: [
-                { q: "Which auxiliary verb does the locomotion verb 'aller' take in Passé Composé?", o: ["Avoir", "Être", "Faire", "Vouloir"], a: "B" },
-                { q: "Transform 'Je vois Marie' using a direct object pronoun:", o: ["Je lui vois", "Je le vois", "Je la vois", "Je me vois"], a: "C" },
-                { q: "How do you formulate the Immediate Future (Futur Proche)?", o: ["Avoir + Past Participle", "Aller + Infinitive Verb", "Être + Past Participle", "Present Tense + Demain"], a: "B" },
-                { q: "Complete: Ils ont ______ (Verb: Finir, Past Participle).", o: ["fini", "finis", "finie", "finir"], a: "A" },
-                { q: "Where does an object pronoun sit in relation to a single conjugated verb?", o: ["After the verb", "Before the subject", "Directly before the verb", "At the absolute end"], a: "C" },
-                { q: "Translate to pronoun structure: 'Je parle à Pierre.'", o: ["Je le parle", "Je lui parle", "Je la parle", "Je leur parle"], a: "B" },
-                { q: "Which past participle shows correct feminine plural mapping with 'Être'?", o: ["allé", "allés", "allée", "allées"], a: "D" },
-                { q: "Colloquially, 'Il n'y a pas de quoi' is compressed down by street speakers into:", o: ["Y'a pas d'quoi", "Pas de quoi", "C'est rien", "All right"], a: "A" },
-                { q: "What pronoun replaces 'aux étudiants' in: 'Je donne les notes aux étudiants'?", o: ["lui", "les", "leur", "y"], a: "C" },
-                { q: "Complete the immediate future track: Nous ______ manger au restaurant.", o: ["allons", "allons faire", "allons aller", "allons venons"], a: "A" },
-                { q: "Identify the incorrect past participle pair:", o: ["Avoir -> eu", "Être -> été", "Faire -> fait", "Aller -> ailé"], a: "D" },
-                { q: "What happens to pronouns like 'le' or 'la' directly before a verb beginning with a vowel?", o: ["They drop out completely", "They become 'l''", "They move behind the verb", "They change to 'lui'"], a: "B" },
-                { q: "In negative structures, where is 'pas' positioned relative to the pronoun-verb block?", o: ["Before the pronoun", "Directly after the verb", "At the very end of sentences", "Inside the pronoun block"], a: "B" },
-                { q: "Conjugate to Passé Composé: Tu ______ (parler) avec ton ami.", o: ["es parlé", "as parlé", "parles", "as parles"], a: "B" },
-                { q: "Which pronoun replaces a location introduced by 'à' or 'en'?", o: ["en", "y", "le", "lui"], a: "B" },
-                { q: "Complete: Elle m'a donné le livre &rarr; Elle ______ a donné.", o: ["le lui", "lui le", "la me", "me l'"], a: "D" },
-                { q: "What is the past participle of the irregular verb 'Prendre' (To take)?", o: ["prendu", "pris", "prenné", "print"], a: "B" },
-                { q: "Spoken contraction check: 'Je vais' is fast-tracked by native speakers into what phonetic output?", o: ["J'vais", "Chais", "Vas", "J'ai"], a: "A" },
-                { q: "When using a verb combination like 'Je veux manger la pomme', where does the object pronoun sit?", o: ["Before veux", "Before manger", "After manger", "Before Je"], a: "B" },
-                { q: "True or False: Indirect object pronouns (lui/leur) change forms based on gender.", o: ["True", "False", "Only in the plural", "Only in Paris"], a: "B" },
-                { q: "Complete: Nous ______ descendus par l'escalier.", o: ["avons", "sommes", "allons", "faisons"], a: "B" },
-                { q: "What is the singular direct object pronoun for inanimate objects of feminine gender?", o: ["Le", "La", "Lui", "Elle"], a: "B" },
-                { q: "Translate: 'I am going to do it' (masculine object).", o: ["Je vais le faire", "Je le vais faire", "Je vais faire lui", "Je fais le"], a: "A" },
-                { q: "Identify the reflexive pronoun combination for 'Nous':", o: ["Nous nous", "Nous vous", "Nous se", "Nous me"], a: "A" },
-                { q: "What happens to the partitive article 'du/de la' in a total negative sentence?", o: ["Stays the same", "Becomes 'de' or 'd''", "Changes to 'des'", "Disappears completely"], a: "B" },
-                { q: "Conjugate: Hier, ils ______ (vendre) leur maison.", o: ["ont vendu", "sont vendus", "vendaient", "ont vendé"], a: "A" },
-                { q: "Which pronoun targets 'de + noun' elements representing quantities?", o: ["y", "en", "le", "les"], a: "B" },
-                { q: "Complete: Vous ______ êtes levés tard ce matin.", o: ["vous", "nous", "se", "avez"], a: "A" },
-                { q: "Select the correct structural past step: Elle ______ (naître) en France.", o: ["a né", "est née", "est né", "a née"], a: "B" },
-                { q: "What is the logical translation for: 'Don't look at me'?", o: ["Regarde-moi pas", "Ne me regarde pas", "Ne regarde pas moi", "Me regarde pas"], a: "B" }
-            ],
-            3: [
-                { q: "Which past tense tracks non-interrupted background states, descriptions, and recurring habits?", o: ["Passé Composé", "Imparfait", "Plus-que-parfait", "Subjonctif"], a: "B" },
-                { q: "What structural baseline is used to extract the root stem for the Imparfait?", o: ["The Infinitive form", "The 'Ils' present form", "The 'Nous' present indicative form", "The past participle"], a: "C" },
-                { q: "Identify the correct Imparfait ending matching the pronoun 'Je':", o: ["-ait", "-es", "-ais", "-ant"], a: "C" },
-                { q: "Which grammatical mood is automatically triggered following the requirement phrase 'Il faut que...'?", o: ["Indicatif", "Conditionnel", "Subjonctif", "Impératif"], a: "C" },
-                { q: "Conjugate the irregular verb 'Être' in the Imparfait with 'Nous':", o: ["étions", "sommes", "étiez", "faisions"], a: "A" },
-                { q: "What does the highly dynamic colloquial transition connector 'Du coup' express in speech?", o: ["Suddenly", "So / Consequently", "By the way", "Never mind"], a: "B" },
-                { q: "Complete the hypothetical dynamic: Si j'avais le temps, je ______ (voyager).", o: ["voyagerai", "voyagerais", "voyageais", "ai voyagé"], a: "B" },
-                { q: "Which particle is completely dropped by native speech engines during fast negation?", o: ["pas", "plus", "ne", "rien"], a: "C" },
-                { q: "Conjugate the verb 'Faire' into the present subjunctive with 'Tu':", o: ["fasses", "fais", "fasses", "fasses"], a: "A" },
-                { q: "What pattern characterizes the conditional tense structural combination?", o: ["Infinitive root + Imparfait endings", "Present root + Future endings", "Subjunctive root + past endings", "Past root + present endings"], a: "A" },
-                { q: "Complete the narrative contrast: 'Pendant que je ______ (dormir), le cambrioleur est entré.'", o: ["ai dormi", "dormais", "dorment", "dormirais"], a: "B" },
-                { q: "Identify the irregular root system of 'Aller' inside the Subjunctive mood context for 'Je':", o: ["aille", "vais", "allasse", "irais"], a: "A" },
-                { q: "When tracking physical or mental states in the past ('I was hungry / tired'), which tense dominates?", o: ["Passé Composé", "Imparfait", "Présent", "Conditionnel"], a: "B" },
-                { q: "Complete: Bien qu'il ______ (faire) froid, nous sortons.", o: ["fait", "fasse", "faudra", "faisait"], a: "B" },
-                { q: "What ending tracks the 'Ils/Elles' pronoun inside the structural layout of the Imparfait?", o: ["-aient", "-aient", "-ent", "-ont"], a: "A" },
-                { q: "Translate: 'I would like to know' using conversational courtesy tools.", o: ["Je veux savoir", "Je voudrais savoir", "Je savais", "Il faut que je sache"], a: "B" },
-                { q: "Which pronoun setup is native to relative clause extensions linking subject tracks ('Who/Which')?", o: ["Que", "Qui", "Dont", "Où"], a: "B" },
-                { q: "What structure tracks an open conditional sequence built on past reality ('If I had known...')?", o: ["Si + Imparfait &rarr; Conditionnel Présent", "Si + Plus-que-parfait &rarr; Conditionnel Passé", "Si + Présent &rarr; Futur Simple", "Si + Subjonctif &rarr; Indicatif"], a: "B" },
-                { q: "Conjugate 'Avoir' into present Subjunctive with 'Vous':", o: ["ayez", "avez", "aviez", "eûtes"], a: "A" },
-                { q: "What semantic role does the relative pronoun 'Que' handle?", o: ["Tracks locations", "Acts as the direct object of the following clause", "Acts as the subject of the clause", "Tracks temporal timelines"], a: "B" },
-                { q: "Identify the correct future stem framework for the irregular verb 'Savoir':", o: ["savr-", "saur-", "sach-", "su-"], a: "B" },
-                { q: "Complete: Je doute qu'elle ______ (venir) ce soir.", o: ["vient", "vienne", "viendra", "venait"], a: "B" },
-                { q: "What element defines the spoken strategy known as paraphrasing?", o: ["Translating back to English mentally", "Describing a word you don't know using familiar terms", "Shouting until understood", "Using hand gestures exclusively"], a: "B" },
-                { q: "Conjugate: Si tu ______ (vouloir), nous pourrions partir.", o: ["veux", "voulais", "voudras", "veuilles"], a: "B" },
-                { q: "Which connector means 'Although' and structurally demands the Subjunctive mood?", o: ["Parce que", "Bien que", "Pendant que", "Pourtant"], a: "B" },
-                { q: "Complete: Quand j'______ (être) grand, je serai pilote.", o: ["serai", "suis", "serais", "étais"], a: "A" },
-                { q: "What structural modification distinguishes 'Imparfait' from 'Conditionnel' when analyzing the root?", o: ["The endings are totally different", "Conditionnel retains the 'R' track of the future/infinitive template", "Imparfait forces double consonants", "There is no structural variance"], a: "B" },
-                { q: "Identify the Subjunctive pattern for regular -ER verbs matching 'Ils':", o: ["Identical to the present indicative timeline visibility", "Forced to switch into -iez blocks", "Swaps out to match Latin root extensions", "Completely irregular in all frameworks"], a: "A" },
-                { q: "Translate: 'It is possible that he knows.'", o: ["Il est possible qu'il sait.", "Il est possible qu'il sache.", "Il est possible qu'il connaisse.", "Il est possible qu'il saura."], a: "B" },
-                { q: "What conversational filler functions exactly like the English sentence structural grease 'In fact'?", o: ["Du coup", "En fait", "Alors", "Bref"], a: "B" }
-            ]
-        };
+  <!-- ========== PHASE 3 ========== -->
+  <div id="phase3" class="phase-content">
+    <div class="card">
+      <h2>Phase 3: Narration & Mental Landscapes (B1)</h2>
+      <h3>I. Imparfait vs. Passé Composé · Subjonctif</h3>
+      <table>
+        <tr><th>Aspect</th><th>Passé Composé</th><th>Imparfait</th></tr>
+        <tr><td>Type</td><td>interruption, precise event</td><td>habit, background, description</td></tr>
+        <tr><td>Ex.</td><td><em>Soudain, le téléphone a sonné.</em></td><td><em>Il faisait froid...</em></td></tr>
+      </table>
+      <div class="speech-bubble">
+        <strong>🔀 Subjunctive trigger</strong><br>
+        Indicatif: <em>Tu pars.</em>  →  Subjonctif: <em>Il faut que tu part<strong>es</strong>.</em>
+      </div>
+      <div class="speech-bubble">
+        <strong>🗣️ B1 spoken grease</strong><br>
+        • <em>Je ne veux pas cela, ce n'est pas bon.</em> → <strong>« Je veux pas ça, c'est pas bon. »</strong><br>
+        • Fillers: <strong>« Du coup »</strong>, <strong>« En fait »</strong>, <strong>« Bah tu vois »</strong>
+      </div>
+    </div>
+    <div class="card">
+      <div class="quiz-title">📘 Phase 3 Diagnostic · 30 questions</div>
+      <form id="quiz3Form"></form>
+      <button class="submit-btn" onclick="gradeQuiz(3)">Évaluer Phase 3</button>
+      <div id="quiz3Result" class="score-display"></div>
+    </div>
+  </div>
 
-        // Render questions programmatically
-        function renderQuizzes() {
-            for (let phaseNum in quizData) {
-                const form = document.getElementById(`quiz${phaseNum}Form`);
-                quizData[phaseNum].forEach((item, idx) => {
-                    const qBlock = document.createElement('div');
-                    qBlock.className = 'q-item';
-                    
-                    const qText = document.createElement('div');
-                    qText.className = 'q-text';
-                    qText.innerText = `${idx + 1}. ${item.q}`;
-                    qBlock.appendChild(qText);
-                    
-                    const grid = document.createElement('div');
-                    grid.className = 'options-grid';
-                    
-                    item.o.forEach((opt, oIdx) => {
-                        const labelCode = String.fromCharCode(65 + oIdx); // A, B, C, D
-                        const label = document.createElement('label');
-                        label.className = 'option-label';
-                        
-                        const input = document.createElement('input');
-                        input.type = 'radio';
-                        input.name = `p${phaseNum}q${idx}`;
-                        input.value = labelCode;
-                        
-                        label.appendChild(input);
-                        label.appendChild(document.createTextNode(opt));
-                        grid.appendChild(label);
-                    });
-                    
-                    qBlock.appendChild(grid);
-                    form.appendChild(qBlock);
-                });
-            }
-        }
+  <!-- ========== PHASE 4 : TRANSLATION ========== -->
+  <div id="phase4" class="phase-content">
+    <div class="card">
+      <h2>📝 Traduction · French → English Translation Lab</h2>
+      <p class="text-small">Paste or type French text below, then click <strong>« Traduire »</strong> for an English rendering. 
+      Click any sample sentence to load it instantly.</p>
 
-        // Evaluation Engine
-        function gradeQuiz(phaseNum) {
-            let score = 0;
-            const total = quizData[phaseNum].length;
-            
-            quizData[phaseNum].forEach((item, idx) => {
-                const checked = document.querySelector(`input[name="p${phaseNum}q${idx}"]:checked`);
-                if (checked && checked.value === item.a) {
-                    score++;
-                }
-            });
-            
-            const display = document.getElementById(`quiz${phaseNum}Result`);
-            display.style.display = 'block';
-            
-            const percentage = (score / total) * 100;
-            if (percentage >= 80) {
-                display.className = 'score-display score-success';
-                display.innerText = `Félicitations ! Score : ${score}/${total} (${percentage.toFixed(0)}%). You have mastered this phase!`;
-            } else {
-                display.className = 'score-display score-fail';
-                display.innerText = `Score : ${score}/${total} (${percentage.toFixed(0)}%). Review the grammar mechanics above and try again. Practice makes perfect !`;
-            }
-            display.scrollIntoView({ behavior: 'smooth' });
-        }
+      <div class="sample-sentences">
+        <span class="sample-chip" data-fr="Bonjour, comment ça va ?">Bonjour, comment ça va ?</span>
+        <span class="sample-chip" data-fr="Je voudrais un café, s'il vous plaît.">Je voudrais un café</span>
+        <span class="sample-chip" data-fr="Où est la gare ?">Où est la gare ?</span>
+        <span class="sample-chip" data-fr="Il fait beau aujourd'hui.">Il fait beau</span>
+        <span class="sample-chip" data-fr="Je ne sais pas.">Je ne sais pas</span>
+        <span class="sample-chip" data-fr="Nous allons au cinéma ce soir.">Nous allons au cinéma</span>
+      </div>
 
-        // Initialize application
-        window.onload = renderQuizzes;
-    </script>
+      <div class="translator-grid">
+        <div class="trans-box">
+          <label for="frenchInput">🇫🇷 Texte français</label>
+          <textarea id="frenchInput" placeholder="Écrivez ou collez du français ici…"></textarea>
+          <div class="trans-btn-group">
+            <button class="trans-btn" onclick="translateFrench()">🔁 Traduire</button>
+            <button class="trans-btn secondary" onclick="clearTranslation()">Effacer</button>
+          </div>
+        </div>
+
+        <div class="trans-box">
+          <label for="englishOutput">🇬🇧 English translation</label>
+          <div id="englishOutput" class="trans-result">✨ La traduction apparaîtra ici.</div>
+          <button class="trans-btn" style="margin-top:0.8rem; background:var(--success);" onclick="copyTranslation()">📋 Copier la traduction</button>
+        </div>
+      </div>
+      <p class="text-small" style="margin-top:0.8rem; color:var(--gray);">
+        ⚡ <strong>Note:</strong> This is a rule‑based translation demonstrator. For production, use a proper API.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ----- TAB SWITCHING -----
+  function switchPhase(phaseId) {
+    document.querySelectorAll('.phase-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(phaseId).classList.add('active');
+    // activate the corresponding button
+    const btns = document.querySelectorAll('.tab-btn');
+    const map = { phase1:0, phase2:1, phase3:2, phase4:3 };
+    if (map[phaseId] !== undefined) btns[map[phaseId]].classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ----- QUIZ DATA (30 Q per phase) -----
+  const quizData = {
+    1: [
+      { q: "Which subject pronoun represents 'We' in formal textbook French?", o: ["Je", "Nous", "Vous", "Ils"], a: "B" },
+      { q: "Complete: Je ______ étudiant.", o: ["es", "ai", "suis", "est"], a: "C" },
+      { q: "Correct masculine indefinite article:", o: ["La", "Le", "Une", "Un"], a: "D" },
+      { q: "Conjugate 'avoir': Tu ______ un dictionnaire.", o: ["as", "es", "ai", "a"], a: "A" },
+      { q: "Street expression 'C'est quoi ?' means:", o: ["Where is it?", "What is it?", "Who is it?", "Why not?"], a: "B" },
+      { q: "Article before vowel: ______ ordinateur.", o: ["Le", "La", "L'", "Les"], a: "C" },
+      { q: "Ils ______ au parc (Aller).", o: ["font", "vont", "allons", "vas"], a: "B" },
+      { q: "Colloquial 'we' but 3rd person singular:", o: ["Ils", "Vous", "On", "Nous"], a: "C" },
+      { q: "Vous ______ du sport (Faire).", o: ["faisons", "font", "faites", "fais"], a: "C" },
+      { q: "Feminine plural definite article:", o: ["Le", "La", "Des", "Les"], a: "D" },
+      { q: "Final consonants like -s/-t are usually:", o: ["Always sounded", "Silent", "Like English Z", "Vocalized by females"], a: "B" },
+      { q: "Elle ______ une voiture rouge.", o: ["est", "fait", "va", "a"], a: "D" },
+      { q: "Masculine equivalent of 'une table':", o: ["le table", "un table", "Fixed gender", "des tables"], a: "C" },
+      { q: "Nous ______ fatigués.", o: ["sommes", "êtes", "sont", "suis"], a: "A" },
+      { q: "Article for 'pain' (bread):", o: ["La", "Le", "L'", "Les"], a: "B" },
+      { q: "Translate: 'I am going'", o: ["Je fais", "J'ai", "Je vais", "Je suis"], a: "C" },
+      { q: "'Je' before vowel becomes:", o: ["J'", "Juh", "No change", "Me"], a: "A" },
+      { q: "Tu ______ des gâteaux (Faire).", o: ["faisons", "faites", "fais", "font"], a: "C" },
+      { q: "Plural of 'un cahier':", o: ["les cahier", "des cahiers", "une cahiers", "le cahiers"], a: "B" },
+      { q: "'Wednesday' in French:", o: ["Lundi", "Mardi", "Jeudi", "Mercredi"], a: "D" },
+      { q: "'Chais pas' in formal French:", o: ["Je sais", "Je ne sais pas", "Ça ne fait rien", "Qu'est-ce que c'est"], a: "B" },
+      { q: "Vous ______ français.", o: ["êtes", "sommes", "sont", "suis"], a: "A" },
+      { q: "'soixante-dix' =", o: ["60", "70", "16", "90"], a: "B" },
+      { q: "Non-specific 'some items':", o: ["Les", "La", "Des", "Un"], a: "C" },
+      { q: "Nous ______ à la maison (Aller).", o: ["allons", "vont", "allez", "vais"], a: "A" },
+      { q: "Address for unknown adult / multiple people:", o: ["Tu", "Vous", "On", "Ils"], a: "B" },
+      { q: "Il ______ beau aujourd'hui (Faire).", o: ["fait", "va", "est", "a"], a: "A" },
+      { q: "'quinze' =", o: ["5", "15", "50", "25"], a: "B" },
+      { q: "Article for 'pomme' (fem.):", o: ["Le", "Un", "La", "L'"], a: "C" },
+      { q: "Elles ______ de la chance (Avoir).", o: ["sont", "ont", "avons", "avez"], a: "B" }
+    ],
+    2: [
+      { q: "Auxiliary for 'aller' in Passé Composé:", o: ["Avoir", "Être", "Faire", "Vouloir"], a: "B" },
+      { q: "'Je vois Marie' → pronoun:", o: ["Je lui vois", "Je le vois", "Je la vois", "Je me vois"], a: "C" },
+      { q: "Futur Proche =", o: ["Avoir + PP", "Aller + Infinitive", "Être + PP", "Present + demain"], a: "B" },
+      { q: "Ils ont ______ (finir).", o: ["fini", "finis", "finie", "finir"], a: "A" },
+      { q: "Object pronoun position with conjugated verb:", o: ["After verb", "Before subject", "Before verb", "At end"], a: "C" },
+      { q: "'Je parle à Pierre' → pronoun:", o: ["Je le parle", "Je lui parle", "Je la parle", "Je leur parle"], a: "B" },
+      { q: "Feminine plural with Être: elle ______", o: ["allé", "allés", "allée", "allées"], a: "D" },
+      { q: "'Il n'y a pas de quoi' compressed:", o: ["Y'a pas d'quoi", "Pas de quoi", "C'est rien", "All right"], a: "A" },
+      { q: "Pronoun for 'aux étudiants' in 'Je donne les notes aux étudiants':", o: ["lui", "les", "leur", "y"], a: "C" },
+      { q: "Nous ______ manger au restaurant.", o: ["allons", "allons faire", "allons aller", "allons venons"], a: "A" },
+      { q: "Incorrect past participle:", o: ["Avoir→eu", "Être→été", "Faire→fait", "Aller→ailé"], a: "D" },
+      { q: "'le/la' before vowel becomes:", o: ["drop", "l'", "move", "lui"], a: "B" },
+      { q: "In negative, 'pas' is placed:", o: ["before pronoun", "after verb", "at end", "inside pronoun"], a: "B" },
+      { q: "Tu ______ (parler) Passé Composé.", o: ["es parlé", "as parlé", "parles", "as parles"], a: "B" },
+      { q: "Pronoun for location (à/en):", o: ["en", "y", "le", "lui"], a: "B" },
+      { q: "Elle m'a donné le livre → Elle ______ a donné.", o: ["le lui", "lui le", "la me", "me l'"], a: "D" },
+      { q: "Past participle of 'Prendre':", o: ["prendu", "pris", "prenné", "print"], a: "B" },
+      { q: "'Je vais' spoken contraction:", o: ["J'vais", "Chais", "Vas", "J'ai"], a: "A" },
+      { q: "In 'Je veux manger la pomme', pronoun placement:", o: ["before veux", "before manger", "after manger", "before Je"], a: "B" },
+      { q: "Indirect object pronouns (lui/leur) change by gender?", o: ["True", "False", "Only plural", "Only Paris"], a: "B" },
+      { q: "Nous ______ descendus par l'escalier.", o: ["avons", "sommes", "allons", "faisons"], a: "B" },
+      { q: "Singular direct object pronoun for fem. inanimate:", o: ["Le", "La", "Lui", "Elle"], a: "B" },
+      { q: "'I am going to do it' (masc.)", o: ["Je vais le faire", "Je le vais faire", "Je vais faire lui", "Je fais le"], a: "A" },
+      { q: "Reflexive pronoun for 'Nous':", o: ["Nous nous", "Nous vous", "Nous se", "Nous me"], a: "A" },
+      { q: "In total negative, 'du/de la' becomes:", o: ["same", "de/d'", "des", "disappears"], a: "B" },
+      { q: "Hier, ils ______ (vendre) leur maison.", o: ["ont vendu", "sont vendus", "vendaient", "ont vendé"], a: "A" },
+      { q: "Pronoun for 'de + noun' quantity:", o: ["y", "en", "le", "les"], a: "B" },
+      { q: "Vous ______ êtes levés tard.", o: ["vous", "nous", "se", "avez"], a: "A" },
+      { q: "Elle ______ (naître) en France.", o: ["a né", "est née", "est né", "a née"], a: "B" },
+      { q: "'Don't look at me' correct:", o: ["Regarde-moi pas", "Ne me regarde pas", "Ne regarde pas moi", "Me regarde pas"], a: "B" }
+    ],
+    3: [
+      { q: "Past tense for background/habit:", o: ["Passé Composé", "Imparfait", "Plus-que-parfait", "Subjonctif"], a: "B" },
+      { q: "Imparfait root comes from:", o: ["Infinitive", "Ils present", "Nous present", "Past participle"], a: "C" },
+      { q: "Imparfait ending for 'Je':", o: ["-ait", "-es", "-ais", "-ant"], a: "C" },
+      { q: "Mood triggered by 'Il faut que':", o: ["Indicatif", "Conditionnel", "Subjonctif", "Impératif"], a: "C" },
+      { q: "Être Imparfait with 'Nous':", o: ["étions", "sommes", "étiez", "faisions"], a: "A" },
+      { q: "Colloquial 'Du coup' means:", o: ["Suddenly", "So / Consequently", "By the way", "Never mind"], a: "B" },
+      { q: "Si j'avais le temps, je ______ (voyager).", o: ["voyagerai", "voyagerais", "voyageais", "ai voyagé"], a: "B" },
+      { q: "Particle dropped in fast negation:", o: ["pas", "plus", "ne", "rien"], a: "C" },
+      { q: "Subjunctive 'Tu' with Faire:", o: ["fasses", "fais", "fasses", "fasses"], a: "A" },
+      { q: "Conditional tense =", o: ["Infinitive + Imparfait endings", "Present + Future endings", "Subjunctive + past", "Past + present"], a: "A" },
+      { q: "Pendant que je ______ (dormir), le cambrioleur est entré.", o: ["ai dormi", "dormais", "dorment", "dormirais"], a: "B" },
+      { q: "Subjunctive root of 'Aller' for Je:", o: ["aille", "vais", "allasse", "irais"], a: "A" },
+      { q: "Past states ('I was tired') use:", o: ["Passé Composé", "Imparfait", "Présent", "Conditionnel"], a: "B" },
+      { q: "Bien qu'il ______ (faire) froid, nous sortons.", o: ["fait", "fasse", "faudra", "faisait"], a: "B" },
+      { q: "Imparfait ending for 'Ils/Elles':", o: ["-aient", "-aient", "-ent", "-ont"], a: "A" },
+      { q: "Polite 'I would like to know':", o: ["Je veux savoir", "Je voudrais savoir", "Je savais", "Il faut que je sache"], a: "B" },
+      { q: "Relative pronoun for subject (who/which):", o: ["Que", "Qui", "Dont", "Où"], a: "B" },
+      { q: "If I had known... (past unreal) =", o: ["Si + Imparfait → Conditionnel Présent", "Si + Plus-que-parfait → Conditionnel Passé", "Si + Présent → Futur", "Si + Subjonctif"], a: "B" },
+      { q: "Avoir subjunctive with 'Vous':", o: ["ayez", "avez", "aviez", "eûtes"], a: "A" },
+      { q: "Relative 'Que' acts as:", o: ["location", "direct object", "subject", "temporal"], a: "B" },
+      { q: "Future stem of 'Savoir':", o: ["savr-", "saur-", "sach-", "su-"], a: "B" },
+      { q: "Je doute qu'elle ______ (venir) ce soir.", o: ["vient", "vienne", "viendra", "venait"], a: "B" },
+      { q: "Paraphrasing =", o: ["Translate to English", "Describe unknown word", "Shout", "Hand gestures"], a: "B" },
+      { q: "Si tu ______ (vouloir), nous pourrions partir.", o: ["veux", "voulais", "voudras", "veuilles"], a: "B" },
+      { q: "'Although' + subjunctive:", o: ["Parce que", "Bien que", "Pendant que", "Pourtant"], a: "B" },
+      { q: "Quand j'______ (être) grand, je serai pilote.", o: ["serai", "suis", "serais", "étais"], a: "A" },
+      { q: "Conditionnel keeps the ______ of future/infinitive.", o: ["ending", "'R' track", "double consonant", "no variance"], a: "B" },
+      { q: "Subjunctive for regular -ER with 'Ils':", o: ["same as indicative", "switch to -iez", "Latin roots", "irregular"], a: "A" },
+      { q: "'It is possible that he knows.'", o: ["Il est possible qu'il sait.", "Il est possible qu'il sache.", "Il est possible qu'il connaisse.", "Il est possible qu'il saura."], a: "B" },
+      { q: "Filler meaning 'In fact':", o: ["Du coup", "En fait", "Alors", "Bref"], a: "B" }
+    ]
+  };
+
+  // ----- RENDER QUIZZES -----
+  function renderQuizzes() {
+    for (let phase in quizData) {
+      const form = document.getElementById(`quiz${phase}Form`);
+      if (!form) continue;
+      form.innerHTML = '';
+      quizData[phase].forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'q-item';
+        const qtext = document.createElement('div');
+        qtext.className = 'q-text';
+        qtext.innerText = `${idx+1}. ${item.q}`;
+        div.appendChild(qtext);
+        const grid = document.createElement('div');
+        grid.className = 'options-grid';
+        item.o.forEach((opt, oi) => {
+          const val = String.fromCharCode(65 + oi);
+          const label = document.createElement('label');
+          label.className = 'option-label';
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = `p${phase}q${idx}`;
+          input.value = val;
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(opt));
+          grid.appendChild(label);
+        });
+        div.appendChild(grid);
+        form.appendChild(div);
+      });
+    }
+  }
+
+  // ----- GRADE QUIZ -----
+  function gradeQuiz(phase) {
+    const data = quizData[phase];
+    let score = 0;
+    data.forEach((item, idx) => {
+      const checked = document.querySelector(`input[name="p${phase}q${idx}"]:checked`);
+      if (checked && checked.value === item.a) score++;
+    });
+    const total = data.length;
+    const display = document.getElementById(`quiz${phase}Result`);
+    display.style.display = 'block';
+    const pct = (score/total)*100;
+    if (pct >= 80) {
+      display.className = 'score-display score-success';
+      display.innerText = `🎉 Félicitations ! ${score}/${total} (${pct.toFixed(0)}%). Phase mastered !`;
+    } else {
+      display.className = 'score-display score-fail';
+      display.innerText = `📖 ${score}/${total} (${pct.toFixed(0)}%). Revise the grammar above. Essayez encore !`;
+    }
+    display.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // ----- TRANSLATION ENGINE (rule-based + fallback) -----
+  const translationMap = {
+    'bonjour': 'hello',
+    'salut': 'hi',
+    'comment': 'how',
+    'ça': 'it/that',
+    'va': 'goes',
+    'je': 'I',
+    'tu': 'you',
+    'il': 'he',
+    'elle': 'she',
+    'nous': 'we',
+    'vous': 'you (formal/pl.)',
+    'ils': 'they (m.)',
+    'elles': 'they (f.)',
+    'suis': 'am',
+    'es': 'are',
+    'est': 'is',
+    'sommes': 'are',
+    'êtes': 'are',
+    'sont': 'are',
+    'ai': 'have',
+    'as': 'have',
+    'a': 'has',
+    'avons': 'have',
+    'avez': 'have',
+    'ont': 'have',
+    'vais': 'go',
+    'vas': 'go',
+    'va': 'goes',
+    'allons': 'go',
+    'allez': 'go',
+    'vont': 'go',
+    'fais': 'do/make',
+    'fait': 'does/makes',
+    'faisons': 'do/make',
+    'faites': 'do/make',
+    'font': 'do/make',
+    'un': 'a (m.)',
+    'une': 'a (f.)',
+    'le': 'the (m.)',
+    'la': 'the (f.)',
+    'les': 'the (pl.)',
+    'des': 'some',
+    'café': 'coffee',
+    's\'il vous plaît': 'please',
+    's\'il te plaît': 'please',
+    'où': 'where',
+    'gare': 'station',
+    'beau': 'beautiful/nice',
+    'aujourd\'hui': 'today',
+    'sais': 'know',
+    'savoir': 'know',
+    'pas': 'not',
+    'ne': 'not',
+    'cinéma': 'cinema',
+    'soir': 'evening',
+    'ce': 'this',
+    'cette': 'this (f.)',
+    'ces': 'these/those',
+    'mon': 'my (m.)',
+    'ma': 'my (f.)',
+    'mes': 'my (pl.)',
+    'ton': 'your (m.)',
+    'ta': 'your (f.)',
+    'tes': 'your (pl.)',
+    'son': 'his/her (m.)',
+    'sa': 'his/her (f.)',
+    'ses': 'his/her (pl.)',
+    'notre': 'our',
+    'nos': 'our (pl.)',
+    'votre': 'your (pl.)',
+    'vos': 'your (pl.)',
+    'leur': 'their',
+    'leurs': 'their (pl.)',
+    'et': 'and',
+    'mais': 'but',
+    'ou': 'or',
+    'donc': 'therefore',
+    'parce que': 'because',
+    'pour': 'for',
+    'avec': 'with',
+    'sans': 'without',
+    'très': 'very',
+    'beaucoup': 'much/many',
+    'peu': 'little/few',
+    'bien': 'well',
+    'mal': 'badly',
+    'ici': 'here',
+    'là': 'there',
+    'maintenant': 'now',
+    'alors': 'then/so',
+    'en fait': 'in fact',
+    'du coup': 'so/consequently',
+  };
+
+  function translateFrench() {
+    const input = document.getElementById('frenchInput');
+    const output = document.getElementById('englishOutput');
+    let text = input.value.trim();
+    if (!text) { output.innerText = '⚠️ Veuillez entrer du texte français.'; return; }
+
+    // simple fallback: word-by-word with a basic tokenizer
+    const words = text.toLowerCase().replace(/[.,!?;:]/g, '').split(/\s+/);
+    let translated = words.map(w => translationMap[w] || w).join(' ');
+    // capitalize first letter
+    translated = translated.charAt(0).toUpperCase() + translated.slice(1);
+    output.innerText = translated || '❓ Traduction non disponible (essaie une phrase simple).';
+  }
+
+  function clearTranslation() {
+    document.getElementById('frenchInput').value = '';
+    document.getElementById('englishOutput').innerHTML = '✨ La traduction apparaîtra ici.';
+  }
+
+  function copyTranslation() {
+    const out = document.getElementById('englishOutput');
+    const text = out.innerText;
+    if (!text || text.includes('La traduction apparaîtra')) return;
+    navigator.clipboard?.writeText(text).then(() => {
+      out.style.background = '#e6f7e6';
+      setTimeout(() => out.style.background = 'white', 500);
+    }).catch(() => alert('Copie manuelle : sélectionnez le texte.'));
+  }
+
+  // sample chips
+  document.querySelectorAll('.sample-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      document.getElementById('frenchInput').value = this.dataset.fr;
+      translateFrench();
+    });
+  });
+
+  // init
+  renderQuizzes();
+</script>
 </body>
 </html>
