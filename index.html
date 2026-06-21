@@ -18,6 +18,7 @@
       --radius: 12px;
       --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background: var(--light);
       color: var(--dark);
@@ -208,7 +209,7 @@
       margin-bottom: 0.5rem;
       color: var(--primary);
     }
-    .trans-box textarea, 
+    .trans-box textarea,
     .trans-box input[type="text"] {
       width: 100%;
       padding: 0.8rem;
@@ -219,7 +220,7 @@
       transition: border 0.2s;
       font-family: inherit;
     }
-    .trans-box textarea:focus, 
+    .trans-box textarea:focus,
     .trans-box input[type="text"]:focus {
       outline: none;
       border-color: var(--primary);
@@ -246,6 +247,8 @@
     .trans-btn:hover { background: #004080; }
     .trans-btn.secondary { background: var(--gray); }
     .trans-btn.secondary:hover { background: #4b5a6a; }
+    .trans-btn.success { background: var(--success); }
+    .trans-btn.success:hover { background: #059669; }
     .trans-result {
       background: white;
       border-radius: var(--radius);
@@ -255,6 +258,19 @@
       margin-top: 0.5rem;
       white-space: pre-wrap;
       word-break: break-word;
+      transition: background 0.3s;
+    }
+    .trans-result.loading {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+    .trans-result.error {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .trans-result.success {
+      background: #d1fae5;
+      color: #065f46;
     }
     .french-highlight { color: var(--primary); font-weight: 500; }
     .sample-sentences {
@@ -277,10 +293,39 @@
       color: white;
       border-color: var(--primary);
     }
-    /* responsive helpers */
     .mt-2 { margin-top: 1.2rem; }
     .text-small { font-size: 0.9rem; }
+    .text-muted { color: var(--gray); }
     code { background: #f1f5f9; padding: 0.1rem 0.4rem; border-radius: 4px; font-family: monospace; }
+    .badge {
+      display: inline-block;
+      background: var(--success);
+      color: white;
+      padding: 0.1rem 0.6rem;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+    .api-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #f1f5f9;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    .api-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .api-dot.online { background: var(--success); }
+    .api-dot.offline { background: var(--accent); }
   </style>
 </head>
 <body>
@@ -389,12 +434,17 @@
     </div>
   </div>
 
-  <!-- ========== PHASE 4 : TRANSLATION ========== -->
+  <!-- ========== PHASE 4 : TRANSLATION with LibreTranslate API ========== -->
   <div id="phase4" class="phase-content">
     <div class="card">
-      <h2>📝 Traduction · French → English Translation Lab</h2>
-      <p class="text-small">Paste or type French text below, then click <strong>« Traduire »</strong> for an English rendering. 
-      Click any sample sentence to load it instantly.</p>
+      <h2>📝 Traduction · French → English Translation <span class="badge">Live API</span></h2>
+      <p class="text-small">Paste or type French text below, then click <strong>« Traduire »</strong> for a real translation using the <strong>LibreTranslate</strong> API (no key required).</p>
+
+      <div class="api-status">
+        <span class="api-dot online" id="apiDot"></span>
+        <span id="apiStatusText">API: LibreTranslate · Online</span>
+        <span style="margin-left:auto; font-size:0.8rem; opacity:0.7;">Free · No API key</span>
+      </div>
 
       <div class="sample-sentences">
         <span class="sample-chip" data-fr="Bonjour, comment ça va ?">Bonjour, comment ça va ?</span>
@@ -403,6 +453,8 @@
         <span class="sample-chip" data-fr="Il fait beau aujourd'hui.">Il fait beau</span>
         <span class="sample-chip" data-fr="Je ne sais pas.">Je ne sais pas</span>
         <span class="sample-chip" data-fr="Nous allons au cinéma ce soir.">Nous allons au cinéma</span>
+        <span class="sample-chip" data-fr="Je suis fatigué aujourd'hui.">Je suis fatigué</span>
+        <span class="sample-chip" data-fr="Quelle heure est-il ?">Quelle heure est-il ?</span>
       </div>
 
       <div class="translator-grid">
@@ -410,38 +462,49 @@
           <label for="frenchInput">🇫🇷 Texte français</label>
           <textarea id="frenchInput" placeholder="Écrivez ou collez du français ici…"></textarea>
           <div class="trans-btn-group">
-            <button class="trans-btn" onclick="translateFrench()">🔁 Traduire</button>
+            <button class="trans-btn" onclick="translateFrench()">🔁 Traduire (API)</button>
             <button class="trans-btn secondary" onclick="clearTranslation()">Effacer</button>
           </div>
         </div>
 
         <div class="trans-box">
-          <label for="englishOutput">🇬🇧 English translation</label>
+          <label for="englishOutput">🇬🇧 English translation <span style="font-weight:400;font-size:0.8rem;color:var(--gray);">(LibreTranslate)</span></label>
           <div id="englishOutput" class="trans-result">✨ La traduction apparaîtra ici.</div>
-          <button class="trans-btn" style="margin-top:0.8rem; background:var(--success);" onclick="copyTranslation()">📋 Copier la traduction</button>
+          <div class="trans-btn-group">
+            <button class="trans-btn success" onclick="copyTranslation()">📋 Copier</button>
+            <button class="trans-btn secondary" onclick="speakTranslation()">🔊 Écouter</button>
+          </div>
         </div>
       </div>
-      <p class="text-small" style="margin-top:0.8rem; color:var(--gray);">
-        ⚡ <strong>Note:</strong> This is a rule‑based translation demonstrator. For production, use a proper API.
-      </p>
+
+      <div style="margin-top:1rem; padding:0.8rem 1rem; background:#f1f5f9; border-radius:8px; font-size:0.85rem; color:var(--gray);">
+        <strong>💡 Note:</strong> Uses <a href="https://libretranslate.com" target="_blank" style="color:var(--primary);">LibreTranslate</a> — a free, open-source translation API. 
+        Works best with complete sentences. Rate-limited to ~100 requests/day for free tier.
+        <span style="display:block;margin-top:0.3rem;">
+          ⚡ <strong>Fallback:</strong> If API fails, a basic dictionary will be used as backup.
+        </span>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  // ----- TAB SWITCHING -----
+  // ============================================================
+  //  TAB SWITCHING
+  // ============================================================
   function switchPhase(phaseId) {
     document.querySelectorAll('.phase-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
     document.getElementById(phaseId).classList.add('active');
-    // activate the corresponding button
     const btns = document.querySelectorAll('.tab-btn');
     const map = { phase1:0, phase2:1, phase3:2, phase4:3 };
     if (map[phaseId] !== undefined) btns[map[phaseId]].classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // ----- QUIZ DATA (30 Q per phase) -----
+  // ============================================================
+  //  QUIZ DATA (30 questions each)
+  // ============================================================
   const quizData = {
     1: [
       { q: "Which subject pronoun represents 'We' in formal textbook French?", o: ["Je", "Nous", "Vous", "Ils"], a: "B" },
@@ -541,7 +604,9 @@
     ]
   };
 
-  // ----- RENDER QUIZZES -----
+  // ============================================================
+  //  RENDER QUIZZES
+  // ============================================================
   function renderQuizzes() {
     for (let phase in quizData) {
       const form = document.getElementById(`quiz${phase}Form`);
@@ -574,7 +639,9 @@
     }
   }
 
-  // ----- GRADE QUIZ -----
+  // ============================================================
+  //  GRADE QUIZ
+  // ============================================================
   function gradeQuiz(phase) {
     const data = quizData[phase];
     let score = 0;
@@ -596,132 +663,146 @@
     display.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  // ----- TRANSLATION ENGINE (rule-based + fallback) -----
-  const translationMap = {
-    'bonjour': 'hello',
-    'salut': 'hi',
-    'comment': 'how',
-    'ça': 'it/that',
-    'va': 'goes',
-    'je': 'I',
-    'tu': 'you',
-    'il': 'he',
-    'elle': 'she',
-    'nous': 'we',
-    'vous': 'you (formal/pl.)',
-    'ils': 'they (m.)',
-    'elles': 'they (f.)',
-    'suis': 'am',
-    'es': 'are',
-    'est': 'is',
-    'sommes': 'are',
-    'êtes': 'are',
-    'sont': 'are',
-    'ai': 'have',
-    'as': 'have',
-    'a': 'has',
-    'avons': 'have',
-    'avez': 'have',
-    'ont': 'have',
-    'vais': 'go',
-    'vas': 'go',
-    'va': 'goes',
-    'allons': 'go',
-    'allez': 'go',
-    'vont': 'go',
-    'fais': 'do/make',
-    'fait': 'does/makes',
-    'faisons': 'do/make',
-    'faites': 'do/make',
-    'font': 'do/make',
-    'un': 'a (m.)',
-    'une': 'a (f.)',
-    'le': 'the (m.)',
-    'la': 'the (f.)',
-    'les': 'the (pl.)',
-    'des': 'some',
-    'café': 'coffee',
-    's\'il vous plaît': 'please',
-    's\'il te plaît': 'please',
-    'où': 'where',
-    'gare': 'station',
-    'beau': 'beautiful/nice',
-    'aujourd\'hui': 'today',
-    'sais': 'know',
-    'savoir': 'know',
-    'pas': 'not',
-    'ne': 'not',
-    'cinéma': 'cinema',
-    'soir': 'evening',
-    'ce': 'this',
-    'cette': 'this (f.)',
-    'ces': 'these/those',
-    'mon': 'my (m.)',
-    'ma': 'my (f.)',
-    'mes': 'my (pl.)',
-    'ton': 'your (m.)',
-    'ta': 'your (f.)',
-    'tes': 'your (pl.)',
-    'son': 'his/her (m.)',
-    'sa': 'his/her (f.)',
-    'ses': 'his/her (pl.)',
-    'notre': 'our',
-    'nos': 'our (pl.)',
-    'votre': 'your (pl.)',
-    'vos': 'your (pl.)',
-    'leur': 'their',
-    'leurs': 'their (pl.)',
-    'et': 'and',
-    'mais': 'but',
-    'ou': 'or',
-    'donc': 'therefore',
-    'parce que': 'because',
-    'pour': 'for',
-    'avec': 'with',
-    'sans': 'without',
-    'très': 'very',
-    'beaucoup': 'much/many',
-    'peu': 'little/few',
-    'bien': 'well',
-    'mal': 'badly',
-    'ici': 'here',
-    'là': 'there',
-    'maintenant': 'now',
-    'alors': 'then/so',
-    'en fait': 'in fact',
-    'du coup': 'so/consequently',
+  // ============================================================
+  //  TRANSLATION ENGINE — LibreTranslate API + Fallback
+  // ============================================================
+
+  // Fallback dictionary (simple word-by-word, used only if API fails)
+  const fallbackMap = {
+    'bonjour': 'hello', 'salut': 'hi', 'comment': 'how', 'ça': 'it/that',
+    'va': 'goes', 'je': 'I', 'tu': 'you', 'il': 'he', 'elle': 'she',
+    'nous': 'we', 'vous': 'you', 'ils': 'they', 'elles': 'they',
+    'suis': 'am', 'es': 'are', 'est': 'is', 'sommes': 'are', 'êtes': 'are',
+    'sont': 'are', 'ai': 'have', 'as': 'have', 'a': 'has', 'avons': 'have',
+    'avez': 'have', 'ont': 'have', 'vais': 'go', 'vas': 'go', 'va': 'goes',
+    'allons': 'go', 'allez': 'go', 'vont': 'go', 'fais': 'do', 'fait': 'does',
+    'faisons': 'do', 'faites': 'do', 'font': 'do', 'un': 'a', 'une': 'a',
+    'le': 'the', 'la': 'the', 'les': 'the', 'des': 'some',
+    'café': 'coffee', 'où': 'where', 'gare': 'station', 'beau': 'beautiful',
+    'aujourd\'hui': 'today', 'sais': 'know', 'pas': 'not', 'ne': 'not',
+    'cinéma': 'cinema', 'soir': 'evening', 'ce': 'this', 'cette': 'this',
+    'ces': 'these', 'mon': 'my', 'ma': 'my', 'mes': 'my', 'ton': 'your',
+    'ta': 'your', 'tes': 'your', 'son': 'his', 'sa': 'her', 'ses': 'their',
+    'notre': 'our', 'nos': 'our', 'votre': 'your', 'vos': 'your',
+    'leur': 'their', 'leurs': 'their', 'et': 'and', 'mais': 'but',
+    'ou': 'or', 'donc': 'therefore', 'parce que': 'because', 'pour': 'for',
+    'avec': 'with', 'sans': 'without', 'très': 'very', 'beaucoup': 'much',
+    'peu': 'little', 'bien': 'well', 'mal': 'badly', 'ici': 'here',
+    'là': 'there', 'maintenant': 'now', 'alors': 'then', 'en fait': 'in fact',
+    'du coup': 'so', 'fatigué': 'tired', 'heure': 'time', 'quelle': 'what'
   };
 
-  function translateFrench() {
+  function fallbackTranslate(text) {
+    const words = text.toLowerCase().replace(/[.,!?;:]/g, '').split(/\s+/);
+    let translated = words.map(w => fallbackMap[w] || w).join(' ');
+    return translated.charAt(0).toUpperCase() + translated.slice(1);
+  }
+
+  async function translateFrench() {
     const input = document.getElementById('frenchInput');
     const output = document.getElementById('englishOutput');
-    let text = input.value.trim();
-    if (!text) { output.innerText = '⚠️ Veuillez entrer du texte français.'; return; }
+    const text = input.value.trim();
 
-    // simple fallback: word-by-word with a basic tokenizer
-    const words = text.toLowerCase().replace(/[.,!?;:]/g, '').split(/\s+/);
-    let translated = words.map(w => translationMap[w] || w).join(' ');
-    // capitalize first letter
-    translated = translated.charAt(0).toUpperCase() + translated.slice(1);
-    output.innerText = translated || '❓ Traduction non disponible (essaie une phrase simple).';
+    if (!text) {
+      output.className = 'trans-result error';
+      output.innerText = '⚠️ Veuillez entrer du texte français.';
+      return;
+    }
+
+    // Show loading state
+    output.className = 'trans-result loading';
+    output.innerText = '🔄 Traduction en cours via LibreTranslate...';
+
+    try {
+      // Call LibreTranslate API (free, no key required)
+      const response = await fetch('https://libretranslate.com/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          q: text,
+          source: 'fr',
+          target: 'en',
+          format: 'text'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`API returned ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (data && data.translatedText) {
+        output.className = 'trans-result success';
+        output.innerText = data.translatedText;
+        // Update API status
+        document.getElementById('apiDot').className = 'api-dot online';
+        document.getElementById('apiStatusText').innerText = 'API: LibreTranslate · Online';
+      } else {
+        throw new Error('Invalid API response');
+      }
+
+    } catch (error) {
+      console.warn('LibreTranslate API failed, using fallback:', error);
+      // Use fallback dictionary
+      const fallbackResult = fallbackTranslate(text);
+      output.className = 'trans-result';
+      output.innerText = fallbackResult + ' ⚠️ (Traduction locale — API indisponible)';
+      document.getElementById('apiDot').className = 'api-dot offline';
+      document.getElementById('apiStatusText').innerText = 'API: Offline · Using fallback dictionary';
+    }
   }
+
+  // ============================================================
+  //  TRANSLATION HELPERS
+  // ============================================================
 
   function clearTranslation() {
     document.getElementById('frenchInput').value = '';
-    document.getElementById('englishOutput').innerHTML = '✨ La traduction apparaîtra ici.';
+    const output = document.getElementById('englishOutput');
+    output.className = 'trans-result';
+    output.innerText = '✨ La traduction apparaîtra ici.';
+    document.getElementById('apiDot').className = 'api-dot online';
+    document.getElementById('apiStatusText').innerText = 'API: LibreTranslate · Online';
   }
 
   function copyTranslation() {
     const out = document.getElementById('englishOutput');
     const text = out.innerText;
-    if (!text || text.includes('La traduction apparaîtra')) return;
+    if (!text || text.includes('La traduction apparaîtra') || text.includes('Veuillez entrer')) return;
     navigator.clipboard?.writeText(text).then(() => {
-      out.style.background = '#e6f7e6';
-      setTimeout(() => out.style.background = 'white', 500);
-    }).catch(() => alert('Copie manuelle : sélectionnez le texte.'));
+      const origBg = out.style.background;
+      out.style.background = '#d1fae5';
+      setTimeout(() => out.style.background = origBg || '', 500);
+    }).catch(() => {
+      // Fallback: select and copy manually
+      const range = document.createRange();
+      range.selectNode(out);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      out.style.background = '#d1fae5';
+      setTimeout(() => out.style.background = '', 500);
+    });
   }
 
-  // sample chips
+  function speakTranslation() {
+    const out = document.getElementById('englishOutput');
+    const text = out.innerText;
+    if (!text || text.includes('La traduction apparaîtra') || text.includes('Veuillez entrer')) return;
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 0.9;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert('La synthèse vocale n\'est pas supportée par votre navigateur.');
+    }
+  }
+
+  // ============================================================
+  //  SAMPLE CHIPS
+  // ============================================================
   document.querySelectorAll('.sample-chip').forEach(chip => {
     chip.addEventListener('click', function() {
       document.getElementById('frenchInput').value = this.dataset.fr;
@@ -729,8 +810,29 @@
     });
   });
 
-  // init
+  // ============================================================
+  //  INIT
+  // ============================================================
   renderQuizzes();
+
+  // Check API status on load (optional ping)
+  async function checkApiStatus() {
+    try {
+      const res = await fetch('https://libretranslate.com/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q: 'test', source: 'en', target: 'fr' })
+      });
+      if (res.ok) {
+        document.getElementById('apiDot').className = 'api-dot online';
+        document.getElementById('apiStatusText').innerText = 'API: LibreTranslate · Online';
+      }
+    } catch (e) {
+      document.getElementById('apiDot').className = 'api-dot offline';
+      document.getElementById('apiStatusText').innerText = 'API: Offline · Fallback ready';
+    }
+  }
+  checkApiStatus();
 </script>
 </body>
 </html>
